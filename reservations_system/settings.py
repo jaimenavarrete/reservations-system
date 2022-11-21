@@ -36,9 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    
+    # LIVERELOAD
+    'livereload',
+    
     'django.contrib.staticfiles',
     
-    # NEW
+    # NEW APPS
     'reservations'
 ]
 
@@ -50,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # LIVERELOAD
+    'livereload.middleware.LiveReloadScript'
 ]
 
 ROOT_URLCONF = 'reservations_system.urls'
