@@ -1,0 +1,114 @@
+<!-- prettier-ignore -->
+
+{% extends 'layouts/base.html' %} 
+
+{% block title %} Home {% endblock title %} 
+
+{% block content %}
+
+<!-- PAGE TITLE -->
+
+<div class="container pagetitle mb-5">
+    <h1>Reservation Events List</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">Components</li>
+            <li class="breadcrumb-item active">Cards</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="container">
+    <section class="row gx-3">
+        {% for event in reservation_events %}
+
+        <div class="col-12 col-md-6 col-xl-4">
+            <article
+                class="card border-4 border-top"
+                style="border-color: {{ event.color_hex_code }} !important"
+            >
+                <div class="card-body">
+                    <div
+                        class="d-flex justify-content-between align-items-center"
+                    >
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-white"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <i class="bi bi-gear-fill"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                        >Another action</a
+                                    >
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                        >Something else here</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <!-- prettier-ignore -->
+                        <i class="bi bi-stopwatch-fill"></i>
+                        <!-- prettier-ignore -->
+                        {{ event.duration }} {{ event.time_unit.name }}, {{ event.event_type.name }}
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <!-- prettier-ignore -->
+                        <i class="bi bi-geo-alt-fill"></i>
+                        {{ event.location }}
+                    </h6>
+                    <p class="card-tex t fst-italic">
+                        {{ event.internal_note }}
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <a
+                            href="/{{ event.event_link }}"
+                            class="btn btn-outline-primary"
+                        >
+                            <i class="bi bi-eye-fill"></i>
+                            View event
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/{{ event.event_link }}" class="card-link"
+                        ><i class="bi bi-clipboard-fill"></i> Copy link</a
+                    >
+                    <div class="form-check form-switch">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexSwitchCheckChecked"
+                            checked=""
+                        />
+                        <label
+                            class="form-check-label"
+                            for="flexSwitchCheckChecked"
+                            >Active</label
+                        >
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        {% endfor %}
+    </section>
+</div>
+
+{% endblock %}
