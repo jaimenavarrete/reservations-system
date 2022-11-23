@@ -8,20 +8,48 @@
 
 <!-- PAGE TITLE -->
 
-<div class="container pagetitle mb-5">
-    <h1>Reservation Events List</h1>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item">Components</li>
-            <li class="breadcrumb-item active">Cards</li>
-        </ol>
-    </nav>
+<div class="container d-sm-flex justify-content-between align-items-start">
+    <div class="pagetitle mb-3">
+        <h1>Reservations</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href=".">Home</a></li>
+                <li class="breadcrumb-item">Components</li>
+                <li class="breadcrumb-item active">Cards</li>
+            </ol>
+        </nav>
+    </div>
+    <a
+        href="./create_event"
+        class="btn btn-primary rounded-pill fw-bold px-4 py-2 my-2"
+    >
+        <i class="bi bi-plus-lg"></i> Create
+    </a>
 </div>
 
 <!-- MAIN CONTENT -->
 
 <div class="container">
+    <nav
+        class="navbar navbar-expand-md navbar-light bg-white pt-3 pb-0 mb-5 rounded shadow-sm"
+    >
+        <div class="container-fluid">
+            <ul class="nav nav-tabs nav-tabs-bordered">
+                <li class="nav-item" role="presentation">
+                    <a href="." class="nav-link px-5 active" type="button"
+                        >Home</a
+                    >
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a href="." class="nav-link px-5" type="button">Profile</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a href="." class="nav-link px-5" type="button">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <section class="row gx-3">
         {% for event in reservation_events %}
 
@@ -94,12 +122,12 @@
                         <input
                             class="form-check-input"
                             type="checkbox"
-                            id="flexSwitchCheckChecked"
+                            id="{{ event.event_link }}"
                             checked=""
                         />
                         <label
                             class="form-check-label"
-                            for="flexSwitchCheckChecked"
+                            for="{{ event.event_link }}"
                             >Active</label
                         >
                     </div>

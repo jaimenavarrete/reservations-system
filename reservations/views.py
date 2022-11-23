@@ -8,3 +8,6 @@ def index(request) :
     return render(request, 'reservations/index.html', {
         'reservation_events': reservation_events
     })
+    
+def create_event(request) :    
+    return render(request, 'reservations/create_event.html')
