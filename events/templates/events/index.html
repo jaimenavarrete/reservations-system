@@ -29,6 +29,8 @@
 <!-- MAIN CONTENT -->
 
 <div class="container">
+    {% include 'components/messages.html' %}
+
     <section class="row gx-3">
         {% for event in reservation_events %}
 
@@ -98,17 +100,26 @@
                         ><i class="bi bi-clipboard-fill"></i> Copy link</a
                     >
                     <div class="form-check form-switch">
+                        <!-- prettier-ignore -->
                         <input
                             class="form-check-input"
                             type="checkbox"
                             id="{{ event.event_link }}"
+                            {% if event.active %}
                             checked=""
+                            {% endif %}
                         />
                         <label
                             class="form-check-label"
                             for="{{ event.event_link }}"
-                            >Active</label
                         >
+                            <!-- prettier-ignore -->
+                            {% if event.active %}
+                            Active
+                            {% else %}
+                            Inactive
+                            {% endif %}
+                        </label>
                     </div>
                 </div>
             </article>
