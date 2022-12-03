@@ -32,3 +32,16 @@ def create_event(request) :
         return redirect('events:index')
     
     return render(request, 'events/create_event.html')
+
+def delete_event(request, event_id) :
+    event = ReservationEvent.objects.filter(id=event_id)
+    
+    if not event.exists() :
+        messages.error(request, "The event does not exist!")
+        return redirect('events:index')
+
+    event.delete()
+    
+    messages.success(request, "The event was delete successfully!")
+    
+    return redirect('events:index')
