@@ -8,7 +8,7 @@ def index(request) :
     
     return render(request, 'events/index.html', {
         'reservation_events': reservation_events
-    })
+        })
     
 def create_event(request) :
     if(request.method == 'POST') :
@@ -33,15 +33,46 @@ def create_event(request) :
     
     return render(request, 'events/create_event.html')
 
+def edit_event(request, event_id) :
+    searched_event = ReservationEvent.objects.filter(id=event_id)
+    
+    if not searched_event.exists() :
+        messages.error(request, "The event does not exist!")
+        return redirect('events:index')
+    
+    event = searched_event[0]
+    
+    if(request.method == 'POST') :
+        event.title = request.POST['title']
+        event.description = request.POST['description']
+        event.internal_note = request.POST['internal-note']
+        event.duration = request.POST['duration']
+        event.location = request.POST['location']
+        event.event_type_id = request.POST['event-type']
+        event.max_spots = request.POST['max-spots']
+        event.display_current_spots_number = request.POST.get('display-current-spots-number', False)
+        event.color_hex_code = request.POST['color-hex-code']
+        event.event_link = request.POST['event-link']
+        
+        event.save()
+        
+        messages.success(request, "The event was edited successfully!")
+    
+        return redirect('events:index')
+
+    return render(request, 'events/create_event.html', {
+        'event': event
+        })
+
 def delete_event(request, event_id) :
     event = ReservationEvent.objects.filter(id=event_id)
     
     if not event.exists() :
         messages.error(request, "The event does not exist!")
         return redirect('events:index')
-
+    
     event.delete()
     
-    messages.success(request, "The event was delete successfully!")
+    messages.success(request, "The event was deleted successfully!")
     
     return redirect('events:index')

@@ -57,7 +57,12 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'events:edit_event' event.id %}"
+                                    >
+                                        <i class="bi bi-pencil-fill"></i> Edit
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#"
