@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import Http404
 from .models import ReservationEvent
 
 # Create your views here.
@@ -64,12 +65,17 @@ def edit_event(request, event_id) :
         'event': event
         })
 
-def delete_event(request, event_id) :
-    event = ReservationEvent.objects.filter(id=event_id)
+def delete_event(request) :
+    if(request.method == 'GET') :
+        Http404()
     
-    if not event.exists() :
+    searched_event = ReservationEvent.objects.filter(id=request.POST['event-id'])
+    
+    if not searched_event.exists() :
         messages.error(request, "The event does not exist!")
         return redirect('events:index')
+    
+    event = searched_event[0]
     
     event.delete()
     
