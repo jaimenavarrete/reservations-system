@@ -116,6 +116,8 @@
                 '.delete-element-btn'
             );
 
+            let copyLinkBtns = document.querySelectorAll('.copy-link-btn');
+
             deleteElementBtns.forEach((btn) =>
                 btn.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -135,6 +137,23 @@
                     });
                 })
             );
+
+            copyLinkBtns.forEach((btn) => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    await navigator.clipboard.writeText(btn.href);
+
+                    btn.classList.add('text-success');
+                    btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+
+                    setTimeout(() => {
+                        btn.innerHTML =
+                            '<i class="bi bi-clipboard-fill"></i> Copy link';
+                        btn.classList.remove('text-success');
+                    }, 1500);
+                });
+            });
         </script>
     </body>
 </html>

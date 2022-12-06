@@ -121,9 +121,12 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
-                    <a href="/{{ event.event_link }}" class="card-link"
-                        ><i class="bi bi-clipboard-fill"></i> Copy link</a
+                    <a
+                        href="/{{ event.event_link }}"
+                        class="card-link copy-link-btn"
                     >
+                        <i class="bi bi-clipboard-fill"></i> Copy link
+                    </a>
                     <div class="form-check form-switch">
                         <!-- prettier-ignore -->
                         <input
