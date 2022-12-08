@@ -1,0 +1,109 @@
+<!-- prettier-ignore -->
+
+{% extends 'layouts/base_reservations.html' %} 
+
+{% block title %} Make a reservation {% endblock title %} 
+
+{% block content %}
+
+<div class="card-header">
+    <h2 class="card-subtitle text-dark fw-bold">Make a reservation</h2>
+</div>
+
+<div class="card-body">
+    <section class="text-center">
+        <p class="card-title mb-2">
+            <i class="bi bi-person-circle"></i> Jaime Navarrete
+        </p>
+        <h2 class="card-subtitle mb-4 fw-bold" style="color: #315fe5">
+            Evento nuevo
+        </h2>
+
+        <p class="h5 card-subtitle mb-3 text-muted">
+            <i class="bi bi-stopwatch-fill"></i>
+            15 min, One-to-one
+        </p>
+        <p class="h5 card-subtitle mb-3 text-muted">
+            <i class="bi bi-geo-alt-fill"></i>
+            ergergergre
+        </p>
+
+        <div class="d-flex justify-content-center">
+            <hr class="w-50 border-0 bg-primary" style="height: 3px" />
+        </div>
+    </section>
+
+    <form
+        action="#"
+        method="post"
+        class="d-flex align-items-center flex-column"
+    >
+        <h3 class="card-title text-center mb-2">Personal information</h3>
+        <div class="form-floating col col-6 mb-3">
+            <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                placeholder="Name"
+            />
+            <label for="name"><i class="bi bi-person-circle"></i> Name</label>
+        </div>
+        <div class="form-floating col col-6 mb-3">
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Email"
+            />
+            <label for="email"><i class="bi bi-envelope-fill"></i> Email</label>
+        </div>
+        <div class="form-floating col col-6 mb-3">
+            <textarea
+                class="form-control"
+                placeholder="Extra information"
+                id="extra-information"
+                name="extra-information"
+                style="height: 100px"
+            ></textarea>
+            <label for="extra-information"
+                ><i class="bi bi-info-circle-fill"></i> Extra information</label
+            >
+        </div>
+
+        <h3 class="card-title text-center mb-2">Select date and time</h3>
+        <div class="form-floating col col-6 mb-3">
+            <input
+                type="date"
+                class="form-control"
+                name="reservation-date"
+                id="reservation-date"
+            />
+            <label for="reservation-date"
+                ><i class="bi bi-calendar-check-fill"></i> Reservation
+                date</label
+            >
+        </div>
+        <div class="form-floating col col-6 mb-5">
+            <input
+                type="time"
+                class="form-control"
+                name="reservation-time"
+                id="reservation-time"
+            />
+            <label for="reservation-time"
+                ><i class="bi bi-alarm-fill"></i> Reservation time</label
+            >
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary mb-2" type="submit">
+                <!-- prettier-ignore -->
+                <i class="bi bi-plus-lg"></i>
+                Make reservation
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
