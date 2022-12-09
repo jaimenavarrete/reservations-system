@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import ReservationEvent
+from .forms import ReservationEventForm
 
 # Create your views here.
 def index(request) :
@@ -11,27 +12,18 @@ def index(request) :
         })
     
 def create_event(request) :
-    if(request.method == 'POST') :
-        ReservationEvent.objects.create(
-            title = request.POST['title'],
-            description = request.POST['description'],
-            internal_note = request.POST['internal-note'],
-            duration = request.POST['duration'],
-            time_unit_id = 1,
-            location = request.POST['location'],
-            event_type_id = request.POST['event-type'],
-            max_spots = request.POST['max-spots'],
-            display_current_spots_number = request.POST.get('display-current-spots-number', False),
-            color_hex_code = request.POST['color-hex-code'],
-            event_link = request.POST['event-link'],
-            created_by = 'userid'
-        )
-
-        messages.success(request, "The event was created successfully!")
-        
-        return redirect('events:index')
+    form = ReservationEventForm(request.POST or None)
     
-    return render(request, 'events/create_event.html')
+    if request.method == 'POST' :        
+        if form.is_valid():
+            form.save()
+            
+            messages.success(request, "The event was created successfully!")
+            return redirect('events:index')
+        
+    return render(request, 'events/create_event.html', {
+        'form': form
+    })
 
 def edit_event(request, event_id) :
     searched_event = ReservationEvent.objects.filter(id=event_id)
@@ -42,30 +34,22 @@ def edit_event(request, event_id) :
     
     event = searched_event[0]
     
-    if(request.method == 'POST') :
-        event.title = request.POST['title']
-        event.description = request.POST['description']
-        event.internal_note = request.POST['internal-note']
-        event.duration = request.POST['duration']
-        event.location = request.POST['location']
-        event.event_type_id = request.POST['event-type']
-        event.max_spots = request.POST['max-spots']
-        event.display_current_spots_number = request.POST.get('display-current-spots-number', False)
-        event.color_hex_code = request.POST['color-hex-code']
-        event.event_link = request.POST['event-link']
-        
-        event.save()
-        
-        messages.success(request, "The event was edited successfully!")
+    form = ReservationEventForm(request.POST or None, instance=event)
     
-        return redirect('events:index')
+    if request.method == 'POST' :
+        if form.is_valid():
+            form.save()
+            
+            messages.success(request, "The event was edited successfully!")
+            return redirect('events:index')
 
     return render(request, 'events/create_event.html', {
-        'event': event
+        'event': event,
+        'form': form
         })
     
 def edit_event_status(request) :
-    if(request.method != 'POST') :
+    if request.method != 'POST' :
         messages.error(request, "Invalid operation!")
         return redirect('events:index')
 
@@ -85,7 +69,7 @@ def edit_event_status(request) :
     return redirect('events:index')
 
 def delete_event(request) :
-    if(request.method != 'POST') :
+    if request.method != 'POST' :
         messages.error(request, "Invalid operation!")
         return redirect('events:index')
     

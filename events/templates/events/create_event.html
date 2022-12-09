@@ -68,169 +68,114 @@
 
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="title"
-                            name="title"
-                            placeholder="Event title"
-                            value="{{ event.title }}"
-                        />
+                        {{ form.title }}
                         <label for="title"
                             ><i class="bi bi-journal-bookmark-fill"></i>
                             Title</label
                         >
+                        <div class="text-danger">{{ form.title.errors }}</div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-floating">
-                        <!-- prettier-ignore -->
-                        <textarea
-                            class="form-control"
-                            placeholder="Description"
-                            id="description"
-                            name="description"
-                            style="height: 100px"
-                        >{{ event.description }}</textarea>
+                        {{ form.description }}
                         <label for="description"
                             ><i class="bi bi-pencil-fill"></i>
                             Description</label
                         >
+                        <div class="text-danger">
+                            {{ form.description.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="location"
-                            name="location"
-                            placeholder="Location"
-                            value="{{ event.location }}"
-                        />
+                        {{ form.location }}
                         <label for="location"
                             ><i class="bi bi-geo-alt-fill"></i> Location</label
                         >
+                        <div class="text-danger">
+                            {{ form.location.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input
-                            type="number"
-                            min="0"
-                            max="1440"
-                            step="5"
-                            class="form-control"
-                            id="duration"
-                            name="duration"
-                            placeholder="Duration (in minutes)"
-                            value="{{ event.duration }}"
-                        />
-                        <label for="duration"
-                            ><i class="bi bi-stopwatch-fill"></i> Duration (in
-                            minutes)</label
-                        >
+                        {{ form.duration_in_minutes }}
+                        <label for="duration">
+                            <i class="bi bi-stopwatch-fill"></i> Duration (in
+                            minutes)
+                        </label>
+                        <div class="text-danger">
+                            {{ form.duration_in_minutes.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <select
-                            class="form-select"
-                            id="event-type"
-                            name="event-type"
-                            aria-label="Event type"
-                        >
-                            <option value="" selected="">
-                                Choose an event type
-                            </option>
-                            <option value="1">One-to-One</option>
-                            <option value="2">Group</option>
-                        </select>
+                        {{ form.event_type }}
                         <label for="event-type"
                             ><i class="bi bi-people-fill"></i> Event type</label
                         >
+                        <div class="text-danger">
+                            {{ form.event_type.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input
-                            type="number"
-                            min="0"
-                            max="100"
-                            class="form-control"
-                            id="max-spots"
-                            name="max-spots"
-                            placeholder="Max number of spots"
-                            value="{{ event.max_spots }}"
-                        />
+                        {{ form.max_spots }}
                         <label for="duration"
                             ><i class="bi bi-people-fill"></i> Max number of
                             spots</label
                         >
+                        <div class="text-danger">
+                            {{ form.max_spots.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <!-- prettier-ignore -->
-                        <input
-                            type="color"
-                            class="form-control"
-                            id="color-hex-code"
-                            name="color-hex-code"
-                            placeholder="Color"
-                            value="{{ event.color_hex_code|default:"#000000" }}"
-                            style="cursor: pointer"
-                        />
+                        {{ form.color_hex_code }}
                         <label for="color-hex-code"
                             ><i class="bi bi-eyedropper"></i> Choose a
                             color</label
                         >
+                        <div class="text-danger">
+                            {{ form.color_hex_code.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="link"
-                            name="event-link"
-                            placeholder="Event link"
-                            value="{{ event.event_link }}"
-                        />
-                        <label for="link">
+                        {{ form.event_link }}
+                        <label for="event-link">
                             <i class="bi bi-link-45deg"></i> Event link -
                             localhost:3001/event/jaimenavarrete/
                         </label>
+                        <div class="text-danger">
+                            {{ form.event_link.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 mb-2">
                     <div class="form-floating">
-                        <!-- prettier-ignore -->
-                        <textarea
-                            class="form-control"
-                            placeholder="Internal note"
-                            id="internal-note"
-                            name="internal-note"
-                            style="height: 100px"
-                        >{{ event.internal_note }}</textarea>
+                        {{ form.internal_note }}
                         <label for="internal-note"
                             ><i class="bi bi-sticky-fill"></i> Internal
                             note</label
                         >
+                        <div class="text-danger">
+                            {{ form.internal_note.errors }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 mb-2">
                     <div class="form-check">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="display-current-spots-number"
-                            name="display-current-spots-number"
-                            value="{{ event.display_current_spots_number }}"
-                        />
+                        {{ form.display_spots_number }}
                         <label
                             class="form-check-label"
-                            for="display-current-spots-number"
+                            for="display-spots-number"
                         >
                             Display current spots number?
                         </label>
