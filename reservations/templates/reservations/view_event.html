@@ -19,11 +19,11 @@
             Evento nuevo
         </h2>
 
-        <p class="h5 card-subtitle mb-3 text-muted">
+        <p class="h6 card-subtitle mb-3 text-muted">
             <i class="bi bi-stopwatch-fill"></i>
             15 min, One-to-one
         </p>
-        <p class="h5 card-subtitle mb-3 text-muted">
+        <p class="h6 card-subtitle mb-3 text-muted">
             <i class="bi bi-geo-alt-fill"></i>
             ergergergre
         </p>
@@ -40,61 +40,38 @@
     >
         <h3 class="card-title text-center mb-2">Personal information</h3>
         <div class="form-floating col col-6 mb-3">
-            <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Name"
-            />
+            {{ form.name }}
             <label for="name"><i class="bi bi-person-circle"></i> Name</label>
+            <div class="text-danger">{{ form.name.errors }}</div>
         </div>
         <div class="form-floating col col-6 mb-3">
-            <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                placeholder="Email"
-            />
+            {{ form.email }}
             <label for="email"><i class="bi bi-envelope-fill"></i> Email</label>
+            <div class="text-danger">{{ form.email.errors }}</div>
         </div>
         <div class="form-floating col col-6 mb-3">
-            <textarea
-                class="form-control"
-                placeholder="Extra information"
-                id="extra-information"
-                name="extra-information"
-                style="height: 100px"
-            ></textarea>
+            {{ form.extra_information }}
             <label for="extra-information"
                 ><i class="bi bi-info-circle-fill"></i> Extra information</label
             >
+            <div class="text-danger">{{ form.extra_information.errors }}</div>
         </div>
 
         <h3 class="card-title text-center mb-2">Select date and time</h3>
         <div class="form-floating col col-6 mb-3">
-            <input
-                type="date"
-                class="form-control"
-                name="reservation-date"
-                id="reservation-date"
-            />
-            <label for="reservation-date"
+            {{ form.start_date }}
+            <label for="start-date"
                 ><i class="bi bi-calendar-check-fill"></i> Reservation
                 date</label
             >
+            <div class="text-danger">{{ form.email.errors }}</div>
         </div>
         <div class="form-floating col col-6 mb-5">
-            <input
-                type="time"
-                class="form-control"
-                name="reservation-time"
-                id="reservation-time"
-            />
-            <label for="reservation-time"
+            {{ form.start_time }}
+            <label for="start-time"
                 ><i class="bi bi-alarm-fill"></i> Reservation time</label
             >
+            <div class="text-danger">{{ form.start_time.errors }}</div>
         </div>
         <div class="text-center">
             <button class="btn btn-primary mb-2" type="submit">

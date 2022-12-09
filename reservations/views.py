@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from . import views
+from .forms import ReservationForm
 
 # Create your views here.
 def view_event(request) :
-    return render(request, 'reservations/view_event.html')
+    form = ReservationForm()
+    
+    return render(request, 'reservations/view_event.html', {
+        'form': form
+    })
