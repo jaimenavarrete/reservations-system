@@ -66,3 +66,36 @@ changeStateBtns.forEach((btn) => {
         btn.submit();
     });
 });
+
+/**
+ * Get the reservations times and insert them to the reservation time select
+ */
+
+let inputStartDate = document.getElementById('start-date');
+let inputStartTime = document.getElementById('start-time');
+
+if (inputStartDate != null && inputStartDate != undefined) {
+    let currentDate = new Date();
+
+    if (inputStartDate.value === '') {
+        inputStartDate.value = currentDate.toISOString().split('T')[0];
+    }
+}
+
+if (inputStartTime != null && inputStartTime != undefined) {
+    fetch('/reservations/get_reservation_times/')
+        .then((response) => response.json())
+        .then((reservation_times_list) => {
+            let fragment = document.createDocumentFragment();
+
+            reservation_times_list.forEach((time) => {
+                let optionElement = document.createElement('option');
+                optionElement.setAttribute('value', time.value);
+                optionElement.textContent = time.name;
+
+                fragment.appendChild(optionElement);
+            });
+
+            inputStartTime.appendChild(fragment);
+        });
+}
