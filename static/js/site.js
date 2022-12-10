@@ -71,8 +71,9 @@ changeStateBtns.forEach((btn) => {
  * Get the reservations times and insert them to the reservation time select
  */
 
-let inputStartDate = document.getElementById('start-date');
-let inputStartTime = document.getElementById('start-time');
+let reservationEventInput = document.getElementById('reservation-event'),
+    inputStartDate = document.getElementById('start-date'),
+    inputStartTime = document.getElementById('start-time');
 
 if (inputStartDate != null && inputStartDate != undefined) {
     let currentDate = new Date();
@@ -83,12 +84,16 @@ if (inputStartDate != null && inputStartDate != undefined) {
 }
 
 if (inputStartTime != null && inputStartTime != undefined) {
-    fetch('/reservations/get_reservation_times/')
+    let eventId = reservationEventInput.value,
+        date = inputStartDate.value,
+        url = `/reservations/get_reservation_times/${eventId}?date=${date}`;
+
+    fetch(url)
         .then((response) => response.json())
-        .then((reservation_times_list) => {
+        .then((response) => {
             let fragment = document.createDocumentFragment();
 
-            reservation_times_list.forEach((time) => {
+            response.data.forEach((time) => {
                 let optionElement = document.createElement('option');
                 optionElement.setAttribute('value', time.value);
                 optionElement.textContent = time.name;

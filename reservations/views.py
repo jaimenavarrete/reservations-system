@@ -29,12 +29,22 @@ def view_event(request, event_link) :
         'form': form
     })
 
-def get_reservation_times(request) :
+def get_reservation_times(request, event_id) :
+    response = {
+        'result': False,
+        'data': None
+    }
+    
+    searched_event = ReservationEvent.objects.filter(id=event_id)
+    
+    if not searched_event.exists() :
+        return JsonResponse(response)
+    
+    event = searched_event[0]
     reservation_times_list = []
     
-    duration = 60
-    start_time = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
-    last_time = start_time + timedelta(days=1) - timedelta(minutes=duration)
+    start_time = datetime.strptime(request.GET.get('date'),'%Y-%m-%d')
+    last_time = start_time + timedelta(days=1) - timedelta(minutes=event.duration_in_minutes)
     
     while start_time <= last_time :
         time = {
@@ -46,4 +56,7 @@ def get_reservation_times(request) :
         
         start_time += timedelta(minutes=5)
     
-    return JsonResponse(reservation_times_list, safe=False)
+    response['result'] = True
+    response['data'] = reservation_times_list
+    
+    return JsonResponse(response, safe=False)

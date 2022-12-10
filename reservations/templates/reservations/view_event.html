@@ -45,7 +45,12 @@
     >
         {% csrf_token %}
 
-        <input type="hidden" name="reservation_event" value="{{ event.id }}" />
+        <input
+            type="hidden"
+            id="reservation-event"
+            name="reservation_event"
+            value="{{ event.id }}"
+        />
 
         <h3 class="card-title text-center mb-2">Personal information</h3>
         <div class="form-floating col col-6 mb-3">
