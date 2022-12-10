@@ -10,34 +10,43 @@
     <h2 class="card-subtitle text-dark fw-bold">Make a reservation</h2>
 </div>
 
-<div class="card-body">
+<div class="card-body py-4">
+    {% include 'components/messages.html' %}
     <section class="text-center">
         <p class="card-title mb-2">
             <i class="bi bi-person-circle"></i> Jaime Navarrete
         </p>
         <h2 class="card-subtitle mb-4 fw-bold" style="color: #315fe5">
-            Evento nuevo
+            {{ event.title }}
         </h2>
 
+        <p class="h6 card-subtitle mb-4">
+            <!-- prettier-ignore -->
+            {% if event.description %}
+                {{ event.description }}
+            {% else %}
+            <span class="fw-bold">(No description)</span>
+            {% endif %}
+        </p>
         <p class="h6 card-subtitle mb-3 text-muted">
             <i class="bi bi-stopwatch-fill"></i>
-            15 min, One-to-one
+            {{ event.duration_in_minutes }} min, {{ event.event_type.name}}
         </p>
-        <p class="h6 card-subtitle mb-3 text-muted">
+        <p class="h6 card-subtitle mb-4 text-muted">
             <i class="bi bi-geo-alt-fill"></i>
-            ergergergre
+            {{ event.location }}
         </p>
-
-        <div class="d-flex justify-content-center">
-            <hr class="w-50 border-0 bg-primary" style="height: 3px" />
-        </div>
     </section>
 
     <form
-        action="#"
+        action="{% url 'reservations:view_event' event.event_link %}"
         method="post"
         class="d-flex align-items-center flex-column"
     >
+        {% csrf_token %}
+
+        <input type="hidden" name="reservation_event" value="{{ event.id }}" />
+
         <h3 class="card-title text-center mb-2">Personal information</h3>
         <div class="form-floating col col-6 mb-3">
             {{ form.name }}
