@@ -4,6 +4,7 @@ from django.contrib import messages
 from datetime import datetime, timedelta
 from .forms import ReservationForm
 from events.models import ReservationEvent
+from .models import Reservation
 
 # Create your views here.
 def view_event(request, event_link) :
@@ -41,20 +42,37 @@ def get_reservation_times(request, event_id) :
         return JsonResponse(response)
     
     event = searched_event[0]
+    duration_time = timedelta(minutes=event.duration_in_minutes)
     reservation_times_list = []
     
-    start_time = datetime.strptime(request.GET.get('date'),'%Y-%m-%d')
-    last_time = start_time + timedelta(days=1) - timedelta(minutes=event.duration_in_minutes)
+    first_available_time = datetime.strptime(request.GET.get('date'),'%Y-%m-%d')
+    last_available_time = first_available_time + timedelta(days=1) - duration_time
     
-    while start_time <= last_time :
-        time = {
-            'value': start_time,
-            'name': start_time.strftime('%H:%M')
-        }
+    current_available_time = first_available_time
+    
+    while current_available_time <= last_available_time :
+        time_text = current_available_time.strftime("%Y-%m-%dT%H:%M")
         
-        reservation_times_list.append(time)
+        reservation_times_list.append(time_text)
         
-        start_time += timedelta(minutes=5)
+        current_available_time += timedelta(minutes=5)
+        
+    # Get the active reservations
+    reservations_list = Reservation.objects.filter(reservation_event_id=event_id)
+    
+    for reservation in reservations_list :
+        first_conflicting_time = reservation.start_time - duration_time + timedelta(minutes=5)
+        last_conflicting_time = reservation.start_time + duration_time - timedelta(minutes=5)
+        
+        current_conflicting_time = first_conflicting_time
+        
+        while current_conflicting_time <= last_conflicting_time :
+            time = current_conflicting_time.strftime("%Y-%m-%dT%H:%M")
+            
+            if time in reservation_times_list :
+                reservation_times_list.remove(time)
+            
+            current_conflicting_time += timedelta(minutes=5)
     
     response['result'] = True
     response['data'] = reservation_times_list
