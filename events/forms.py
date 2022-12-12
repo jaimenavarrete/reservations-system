@@ -38,8 +38,7 @@ class ReservationEventForm(forms.ModelForm) :
                 'class': 'form-control',
                 'placeholder': 'Duration (in minutes)',
                 'min': '0',
-                'max': '1440',
-                'step': '5'
+                'max': '1440'
                 }),
             'event_type': forms.Select(attrs={
                 'id': 'event-type',
